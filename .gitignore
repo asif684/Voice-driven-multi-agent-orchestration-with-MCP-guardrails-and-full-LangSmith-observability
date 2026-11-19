@@ -1,0 +1,68 @@
+# === SECRETS & CREDENTIALS (NEVER COMMIT) ===
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.crt
+gcp-oauth.keys.json
+credentials.json
+token.json
+
+# === MCP AUTH TOKENS (MACHINE-SPECIFIC) ===
+~/.gmail-mcp/
+~/.mcp-auth/
+/home/*/.gmail-mcp/
+/home/*/.mcp-auth/
+/Users/*/.gmail-mcp/
+/Users/*/.mcp-auth/
+C:\Users\*\.gmail-mcp\
+C:\Users\*\.mcp-auth\
+
+# === PYTHON ===
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# === IDE/EDITOR ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# === OS ===
+.DS_Store
+Thumbs.db
+
+# === LOGS & TEMP ===
+*.log
+server.log
+*.tmp
+temp/
+tmp/
+
+# === BUILD/DEPLOY ===
+dist/
+build/
+*.egg-info/
+.docker/
+docker-entrypoint.sh.backup
+
+# === PACKED TOKENS (GENERATED) ===
+*_B64
+*_b64
+pack_mcp_tokens_output.txt
+
+# === VIDEO/AUDIO TEST FILES ===
+test_*.wav
+test_*.webm
+test_*.ogg
+test_*.mp3
+test_*.mp4

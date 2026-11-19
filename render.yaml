@@ -1,0 +1,63 @@
+# Uses the Dockerfile (Python + Node.js) because the Gmail/Notion MCP
+# servers are launched via npx at runtime - a plain Python buildpack
+# service has no Node.js and npx would fail.
+#
+# Read the "Deploying the web demo" section in README.md before using
+# this. In short:
+#   - GMAIL_MCP_TAR_B64 / MCP_AUTH_TAR_B64 carry your local one-time-login
+#     tokens into the container (generate them with
+#     scripts/pack_mcp_tokens.py) - Render's disk is ephemeral, so
+#     docker-entrypoint.sh restores them from these env vars on every boot.
+#   - AUTH_USERNAME / AUTH_PASSWORD gate the entire app (including the page
+#     itself) behind HTTP Basic Auth - set AUTH_PASSWORD before this
+#     service is reachable on a public URL, since the agent has real
+#     Gmail read/send access and there's no login otherwise.
+services:
+  - type: web
+    name: voice-notion-agent-demo
+    env: docker
+    plan: free
+    envVars:
+      # LLM
+      - key: LLM_PROVIDER
+        value: gemini
+      - key: GOOGLE_API_KEY
+        sync: false
+      # Search
+      - key: TAVILY_API_KEY
+        sync: false
+      # STT
+      - key: STT_PROVIDER
+        value: deepgram
+      - key: DEEPGRAM_API_KEY
+        sync: false
+      - key: STT_MODEL
+        value: nova-2
+      # TTS
+      - key: TTS_PROVIDER
+        value: elevenlabs
+      - key: ELEVENLABS_API_KEY
+        sync: false
+      - key: TTS_MODEL
+        value: eleven_flash_v2_5
+      - key: TTS_VOICE
+        value: 21m00Tcm4TlvDq8ikWAM
+      # Auth
+      - key: AUTH_USERNAME
+        value: demo
+      - key: AUTH_PASSWORD
+        sync: false
+      # MCP tokens (generated via scripts/pack_mcp_tokens.py)
+      - key: GMAIL_MCP_TAR_B64
+        sync: false
+      - key: MCP_AUTH_TAR_B64
+        sync: false
+      # Optional: LangSmith observability
+      - key: LANGSMITH_TRACING
+        value: "true"
+      - key: LANGSMITH_ENDPOINT
+        value: https://api.smith.langchain.com
+      - key: LANGSMITH_API_KEY
+        sync: false
+      - key: LANGSMITH_PROJECT
+        value: voice-agent-demo

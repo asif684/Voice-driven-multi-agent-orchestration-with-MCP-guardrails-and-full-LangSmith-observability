@@ -1,0 +1,13 @@
+langchain>=0.3.0
+langchain-google-genai>=0.2.0
+langchain-mcp-adapters>=0.3.0
+langsmith>=0.12.0
+google-genai>=1.0.0
+deepgram-sdk>=3.0.0
+elevenlabs>=1.0.0
+openai>=1.40.0
+python-dotenv>=1.0.1
+langchain-tavily>=0.2.0
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9
